@@ -1,0 +1,320 @@
+log:
+  level: warn
+  file: "/tmp/mosdns.log"
+
+include: []
+
+data_providers:
+  - tag: geoip
+    file: "/usr/share/v2ray/geoip.dat"
+    auto_reload: true
+
+  - tag: geosite
+    file: "/usr/share/v2ray/geosite.dat"
+    auto_reload: true
+
+  - tag: whitelist
+    file: "/etc/mosdns/rule/whitelist.txt"
+    auto_reload: true
+
+  - tag: blocklist
+    file: "/etc/mosdns/rule/blocklist.txt"
+    auto_reload: true
+
+  - tag: greylist
+    file: "/etc/mosdns/rule/greylist.txt"
+    auto_reload: true
+
+  - tag: hosts
+    file: "/etc/mosdns/rule/hosts.txt"
+    auto_reload: true
+
+  - tag: redirect
+    file: "/etc/mosdns/rule/redirect.txt"
+    auto_reload: true
+
+  - tag: local_ptr
+    file: "/etc/mosdns/rule/local-ptr.txt"
+    auto_reload: true
+
+  - tag: adlist
+    file: "/etc/mosdns/rule/adlist.txt"
+    auto_reload: true
+
+plugins:
+
+  - tag: cache
+    type: cache
+    args:
+      size: 2048
+      lazy_cache_ttl: 86400
+      lazy_cache_reply_ttl: 5
+      cache_everything: true
+
+#ECS定位东京
+  - tag: ecs_jp
+    type: ecs
+    args:
+      auto: false
+      ipv4: "106.161.35.0"
+      force_overwrite: true
+      mask4: 24
+
+#ECS定位合肥
+  - tag: ecs_hf
+    type: ecs
+    args:
+      auto: false
+      ipv4: "36.33.10.0"
+      ipv6: "2408:8244::"
+      force_overwrite: true
+      mask4: 24
+      mask6: 32
+
+#标准解析ttl
+  - tag: modify_ttl
+    type: ttl
+    args:
+      minimal_ttl: 600
+      maximum_ttl: 3600
+
+#fake ip ttl
+  - tag: clash_ttl
+    type: ttl
+    args:
+      minimal_ttl: 1
+      maximum_ttl: 5
+
+  - tag: forward_local
+    type: fast_forward
+    args:
+      upstream:
+        - addr: "tls://dns.alidns.com"
+          bootstrap: "127.0.0.1:6057"
+          idle_timeout: 30
+          enable_pipeline: false
+          enable_http3: false
+          max_conns: 2
+        - addr: "tls://dot.pub"
+#          bootstrap: "127.0.0.1:6057"
+          dial_addr: "1.12.12.12"
+          idle_timeout: 30
+          enable_pipeline: false
+          enable_http3: false
+          max_conns: 2
+        - addr: "https://doh.onedns.net/dns-query"
+#          bootstrap: "10.10.10.253"
+          idle_timeout: 30
+          enable_pipeline: false
+          enable_http3: false
+          max_conns: 2
+
+  - tag: forward_remote
+    type: fast_forward
+    args:
+      upstream:
+        - addr: https://dns.quad9.net/dns-query
+          bootstrap: "127.0.0.1:6057"
+          enable_http3: true
+          enable_pipeline: true
+        - addr: https://mozilla.cloudflare-dns.com/dns-query
+          bootstrap: "127.0.0.1:6057"
+          enable_http3: true
+          enable_pipeline: true
+        - addr: https://dns.google/dns-query
+          bootstrap: "127.0.0.1:6057"
+          enable_http3: true
+          enable_pipeline: true
+        - addr: https://public.dns.iij.jp/dns-query
+          bootstrap: "127.0.0.1:6057"
+          enable_pipeline: true
+#        - addr: 77c1abd4.d.adguard-dns.com/dns-query
+#          enable_pipeline: true
+
+  - tag: query_is_whitelist_domain
+    type: query_matcher
+    args:
+      domain:
+        - "provider:whitelist"
+
+  - tag: query_is_blocklist_domain
+    type: query_matcher
+    args:
+      domain:
+        - "provider:blocklist"
+
+  - tag: query_is_greylist_domain
+    type: query_matcher
+    args:
+      domain:
+        - "provider:greylist"
+
+  - tag: query_is_hosts_domain
+    type: hosts
+    args:
+      hosts:
+        - "provider:hosts"
+
+  - tag: query_is_redirect_domain
+    type: redirect
+    args:
+      rule:
+        - "provider:redirect"
+
+  - tag: query_is_local_domain
+    type: query_matcher
+    args:
+      domain:
+        - "provider:geosite:cn"
+
+  - tag: query_is_non_local_domain
+    type: query_matcher
+    args:
+      domain:
+        - "provider:geosite:geolocation-!cn"
+
+  - tag: query_is_non_reachable_domain
+    type: query_matcher
+    args:
+      domain:
+        - "provider:geosite:gfw"
+        - "provider:geosite:greatfire"
+
+
+  - tag: response_has_local_ip
+    type: response_matcher
+    args:
+      ip:
+        - "provider:geoip:cn"
+
+  - tag: query_is_ad_domain
+    type: query_matcher
+    args:
+      domain:
+        - "adblock"
+
+  - tag: match_local_ptr
+    type: query_matcher
+    args:
+      qtype: [12]
+      domain:
+        - "provider:local_ptr"
+
+  - tag: match_qtype65
+    type: query_matcher
+    args:
+      qtype: [65]
+
+  - tag: blackhole
+    type: blackhole
+    args:
+      rcode: 0        # 生成`Rcode`为该值的应答。如果负数，则将应答设为空值(丢弃已存在的应答)。
+      ipv4:           # 如果请求类型是 A，则生成包含这些 IP 地址的应答。
+        - "128.1.131.58"  
+      ipv6:           # 如果请求类型是 AAAA，则生成包含这些 IP 地址的应答。
+        - "2406:da1e:dee:fb00:3358:ec01:363:dd50"
+
+  - tag: "main_sequence"
+    type: "sequence"
+    args:
+      exec:
+        - _misc_optm
+        - query_is_hosts_domain
+        - query_is_redirect_domain
+
+        - cache
+
+        - if: query_is_whitelist_domain
+          exec:
+            - forward_local
+            - modify_ttl
+            - _return
+
+        - if: "query_is_blocklist_domain || query_is_ad_domain || match_local_ptr || match_qtype65"
+          exec:
+#            - _new_nxdomain_response
+#            - _drop_response
+            - blackhole
+            - _return
+
+        - if: query_is_local_domain
+          exec:
+            - forward_local
+            - modify_ttl
+            - _return
+
+        - if: "query_is_greylist_domain ||  query_is_non_local_domain"
+          exec:
+            - forward_remote
+            - modify_ttl
+            - _return
+
+        - primary:
+            - forward_local
+            - if: "(! response_has_local_ip) && [_response_valid_answer]"
+              exec:
+                - _drop_response
+            - modify_ttl
+          secondary:
+            - _prefer_ipv4
+            - forward_remote
+            - modify_ttl
+          fast_fallback: 200
+
+  - tag: "sec_sequence"
+    type: "sequence"
+    args:
+      exec:
+        - _misc_optm
+        - query_is_hosts_domain
+        - query_is_redirect_domain
+
+        - cache
+
+        - if: query_is_whitelist_domain
+          exec:
+            - forward_local
+            - modify_ttl
+            - _return
+
+        - if: "query_is_blocklist_domain || match_local_ptr"
+          exec:
+            - blackhole
+            - _return
+
+        - _prefer_ipv4
+        - if: "(! query_is_non_reachable_domain)"
+          exec:
+            - _drop_response
+            - ecs_hf
+            - forward_remote
+            - modify_ttl
+            - _return
+
+        - ecs_jp
+        - forward_remote
+        - modify_ttl
+
+  - tag: "bootstrap"
+    type: "sequence"
+    args:
+      exec:
+        - _misc_optm
+        - query_is_hosts_domain
+        - cache
+        - forward_local
+        - modify_ttl
+
+servers:
+  - exec: main_sequence
+    listeners:
+      - protocol: udp
+        addr: ":6055"
+  - exec: sec_sequence
+    listeners:
+      - protocol: udp
+        addr: ":6056"
+  - exec: bootstrap
+    listeners:
+      - protocol: udp
+        addr: ":6057"

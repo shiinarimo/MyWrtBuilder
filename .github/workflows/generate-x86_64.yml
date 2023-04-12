@@ -4,13 +4,11 @@ name: Generate x86_64 OpenWrt Firmware
 
 # Controls when the workflow will run
 on:
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-    inputs:
-      release: 
-        description: 将编译出的镜像上传到 Release
-        required: false
-        default: 'false'
+#  push:
+#    branches: 
+#      - master
+  watch:
+    types: [started]
 
 env:
   DOWNLOAD_BASE: https://downloads.immortalwrt.org
