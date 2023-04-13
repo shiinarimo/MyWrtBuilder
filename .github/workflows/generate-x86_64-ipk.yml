@@ -45,7 +45,7 @@ jobs:
           wget $DOWNLOAD_BASE/releases/$VERSION/targets/x86/64/$VENDOR-sdk-$VERSION-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
           tar -xvf $VENDOR-sdk-$VERSION-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
           rm -rf $VENDOR-sdk-$VERSION-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
-          cp -r $GITHUB_WORKSPACE/origin/* $GITHUB_WORKSPACE/$VENDOR-sdk-$VERSION-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz/
+          cp -r $GITHUB_WORKSPACE/origin/* $GITHUB_WORKSPACE/$VENDOR-sdk-$VERSION-x86-64_gcc-8.4.0_musl.Linux-x86_64/
       
       - name: DIY Scripts
         working-directory: ${{ env.VENDOR }}-skd-${{ env.VERSION }}-x86-64_gcc-8.4.0_musl.Linux-x86_64
