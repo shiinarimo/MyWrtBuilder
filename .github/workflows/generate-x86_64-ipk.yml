@@ -1,0 +1,83 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Generate x86_64 OpenWrt IPK custom made
+
+# Controls when the workflow will run
+on:
+#  push:
+#    branches: 
+#      - master
+  watch:
+    types: [started]
+
+env:
+  DOWNLOAD_BASE: https://downloads.immortalwrt.org
+  VENDOR: immortalwrt
+  VERSION: 21.02.3
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  Generate:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-20.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Initialization Environment
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get -qq install build-essential libncurses5-dev libncursesw5-dev zlib1g-dev gawk git gettext libssl-dev xsltproc rsync wget unzip python qemu-utils mkisofs
+
+      - name: Setup Environment Variables
+        run: |
+          echo "DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
+          echo "DATETIME=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+      
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v3
+        with: 
+          path: origin
+
+      - name: Download Image Builder
+        run: |
+          wget $DOWNLOAD_BASE/releases/$VERSION/targets/x86/64/$VENDOR-sdk-$VERSION-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+          tar -xvf $VENDOR-sdk-$VERSION-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+          rm -rf $VENDOR-sdk-$VERSION-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+          cp -r $GITHUB_WORKSPACE/origin/* $GITHUB_WORKSPACE/$VENDOR-sdk-$VERSION-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz/
+      
+      - name: DIY Scripts
+        working-directory: ${{ env.VENDOR }}-skd-${{ env.VERSION }}-x86-64_gcc-8.4.0_musl.Linux-x86_64
+        run: |
+          bash scripts/sdk.sh
+        #  wget -O ./.config https://raw.githubusercontent.com/shiinarimo/MyWrtBuilder/master/IPK.config
+
+      - name: feeds
+        working-directory: ${{ env.VENDOR }}-sdk-${{ env.VERSION }}-x86-64_gcc-8.4.0_musl.Linux-x86_64
+        run: |
+          bash build.sh
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+
+      - name: make
+        working-directory: ${{ env.VENDOR }}-sdk-${{ env.VERSION }}-x86-64_gcc-8.4.0_musl.Linux-x86_64
+        run: |
+          make -j($nproc)
+
+      - name: Upload Firmware to Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.VENDOR }}-${{ env.VERSION }}-x86_64-IpkS-${{ env.DATETIME }}
+          path: ${{ env.VENDOR }}-sdk-${{ env.VERSION }}-x86-64_gcc-8.4.0_musl.Linux-x86_64/bin/packages/*
+
+      - name: Upload Firmware to Release
+        if: github.event.inputs.release == 'true'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file_glob: true
+          file: ${{ env.VENDOR }}-sdk-${{ env.VERSION }}-x86-64_gcc-8.4.0_musl.Linux-x86_64/bin/packages/*
+          asset_name: ${{ github.event.repository.name }}-${{ github.sha }}
+          tag: release-${{ env.DATE }}
+          overwrite: true
