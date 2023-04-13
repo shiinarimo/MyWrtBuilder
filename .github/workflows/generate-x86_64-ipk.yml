@@ -62,6 +62,7 @@ jobs:
       - name: make
         working-directory: ${{ env.VENDOR }}-sdk-${{ env.VERSION }}-x86-64_gcc-8.4.0_musl.Linux-x86_64
         run: |
+          cp ./IPK.config .config
           make -j($nproc)
 
       - name: Upload Firmware to Artifacts
