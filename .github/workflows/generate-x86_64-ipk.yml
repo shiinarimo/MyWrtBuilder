@@ -48,7 +48,7 @@ jobs:
           cp -r $GITHUB_WORKSPACE/origin/* $GITHUB_WORKSPACE/$VENDOR-sdk-$VERSION-x86-64_gcc-8.4.0_musl.Linux-x86_64/
       
       - name: DIY Scripts
-        working-directory: ${{ env.VENDOR }}-skd-${{ env.VERSION }}-x86-64_gcc-8.4.0_musl.Linux-x86_64
+        working-directory: ${{ env.VENDOR }}-sdk-${{ env.VERSION }}-x86-64_gcc-8.4.0_musl.Linux-x86_64
         run: |
           bash scripts/sdk.sh
         #  wget -O ./.config https://raw.githubusercontent.com/shiinarimo/MyWrtBuilder/master/IPK.config
