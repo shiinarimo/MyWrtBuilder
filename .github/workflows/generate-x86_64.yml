@@ -9,6 +9,8 @@ on:
 #      - master
   watch:
     types: [started]
+  schedule:
+    - cron: '0 5 28 * *'
 
 env:
   DOWNLOAD_BASE: https://downloads.immortalwrt.org
