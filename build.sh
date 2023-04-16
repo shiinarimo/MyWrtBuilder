@@ -29,6 +29,12 @@ PACKAGES="$PACKAGES luci-i18n-watchcat-zh-cn"
 PACKAGES="$PACKAGES luci-app-openclash"
 # Passwall 代理
 PACKAGES="$PACKAGES luci-app-passwall luci-i18n-passwall-zh-cn"
+# Passwall功能补充
+PACKAGES="$PACKAGES hysteria"
+PACKAGES="$PACKAGES naiveproxy"
+PACKAGES="$PACKAGES chinadns-ng"
+
+
 # frp 和 nps 内网穿透
 # PACKAGES="$PACKAGES luci-i18n-nps-zh-cn luci-i18n-frpc-zh-cn"
 # 跳过代理
@@ -61,9 +67,11 @@ PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn"
 # VPN 类
 
 # IPSec VPN
-# PACKAGES="$PACKAGES luci-i18n-ipsec-vpnd-zh-cn"
+#PACKAGES="$PACKAGES luci-i18n-ipsec-vpnd-zh-cn"
 # Zerotier
-# PACKAGES="$PACKAGES luci-i18n-zerotier-zh-cn"
+PACKAGES="$PACKAGES luci-i18n-zerotier-zh-cn"
+# OpenVPN
+PACKAGES="$PACKAGES luci-i18n-openvpn-zh-cn"
 
 # 网络组件
 # UPNP
@@ -77,7 +85,13 @@ PACKAGES="$PACKAGES luci-i18n-nlbwmon-zh-cn"
 # NFT QOS
 PACKAGES="$PACKAGES luci-app-nft-qos"
 # Speedrv2
-PACKAGES="$PACKAGES luci-i18n-speederv2-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-speederv2-zh-cn"
+
+# Turboacc加速算法补全
+PACKAGES="$PACKAGES kmod-shortcut-fe"
+PACKAGES="$PACKAGES kmod-shortcut-fe-cm"
+PACKAGES="$PACKAGES kmod-fast-classifier"
+PACKAGES="$PACKAGES kmod-tcp-bbr"
 
 # 界面翻译补全
 PACKAGES="$PACKAGES luci-i18n-opkg-zh-cn luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn luci-i18n-turboacc-zh-cn"
@@ -85,8 +99,8 @@ PACKAGES="$PACKAGES luci-i18n-opkg-zh-cn luci-i18n-base-zh-cn luci-i18n-firewall
 # Packages 文件夹下的 ipk 包
 # PACKAGES="$PACKAGES luci-i18n-wrtbwmon-zh-cn"
 
-# 一些自己需要的内核组件
-PACKAGES="$PACKAGES kmod-usb-printer kmod-lp"
+# 打印机模块
+# PACKAGES="$PACKAGES kmod-usb-printer kmod-lp"
 
 # 一些其他可能有用的包
 
@@ -97,7 +111,7 @@ PACKAGES="$PACKAGES luci-i18n-ttyd-zh-cn"
 PACKAGES="$PACKAGES luci-i18n-advanced-reboot-zh-cn"
 
 # DNS优化相关
-PACKAGES="$PACKAGES luci-i18n-nextdns-zh-cn"
+#PACKAGES="$PACKAGES luci-i18n-nextdns-zh-cn"
 PACKAGES="$PACKAGES luci-i18n-smartdns-zh-cn"
 
 # Server酱
