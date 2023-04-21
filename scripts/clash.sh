@@ -10,3 +10,6 @@ tar -zxvf clash-linux-amd64.tar.gz
 cp clash clash_meta
 rm -rf clash-linux-amd64.tar.gz
 rm clash
+wget https://raw.githubusercontent.com/vernesong/OpenClash/core/master/dev/clash-linux-amd64.tar.gz
+tar -zxvf clash-linux-amd64.tar.gz
+rm -rf clash-linux-amd64.tar.gz

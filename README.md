@@ -1,3 +1,15 @@
+## 修改内容
+1.定制软件包 移除打印机、网络存储、Docker等旁路由不必要功能
+
+2.内置clash内核添加clash.meta
+
+3.增加默认不安装的Passwall及Turboacc额外功能依赖
+
+4.自用network配置
+
+5.定时每月28日自动生成固件
+
+-----------------------------------
 # MyWrtBuilder
 使用 OpenWrt ImageBuilder 快速构建可定制化的 OpenWrt 固件。
 
