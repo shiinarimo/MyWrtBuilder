@@ -115,7 +115,7 @@ PACKAGES="$PACKAGES luci-i18n-advanced-reboot-zh-cn"
 PACKAGES="$PACKAGES luci-i18n-smartdns-zh-cn"
 
 # Server酱
-PACKAGES="$PACKAGES luci-app-serverchan"
+#PACKAGES="$PACKAGES luci-app-serverchan"
 
 
 # zsh 终端
