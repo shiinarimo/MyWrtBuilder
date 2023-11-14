@@ -33,14 +33,17 @@ PACKAGES="$PACKAGES luci-app-passwall luci-i18n-passwall-zh-cn"
 PACKAGES="$PACKAGES hysteria"
 PACKAGES="$PACKAGES naiveproxy"
 PACKAGES="$PACKAGES chinadns-ng"
+PACKAGES="$PACKAGES brook"
+PACKAGES="$PACKAGES v2ray-geosite"
+PACKAGES="$PACKAGES v2ray-geoip"
 
 
 # frp 和 nps 内网穿透
 # PACKAGES="$PACKAGES luci-i18n-nps-zh-cn luci-i18n-frpc-zh-cn"
 # 跳过代理
-PACKAGES="$PACKAGES luci-i18n-vpnbypass-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-vpnbypass-zh-cn"
 # wireguard
-PACKAGES="$PACKAGES luci-i18n-wireguard-zh-cn"
+PACKAGES="$PACKAGES luci-proto-wireguard"
 
 # 常用的网络存储组件
 
@@ -83,19 +86,22 @@ PACKAGES="$PACKAGES luci-app-syncdial luci-i18n-mwan3-zh-cn"
 # 宽带监控 Nlbwmon
 PACKAGES="$PACKAGES luci-i18n-nlbwmon-zh-cn"
 # NFT QOS
-PACKAGES="$PACKAGES luci-app-nft-qos"
+PACKAGES="$PACKAGES luci-i18n-nft-qos-zh-cn"
+#
+PACKAGES="$PACKAGES luci-i18n-netdata-zh-cn"
 # Speedrv2
 # PACKAGES="$PACKAGES luci-i18n-speederv2-zh-cn"
 
 # Turboacc加速算法补全
-PACKAGES="$PACKAGES kmod-shortcut-fe"
-PACKAGES="$PACKAGES kmod-shortcut-fe-cm"
-PACKAGES="$PACKAGES kmod-fast-classifier"
+# PACKAGES="$PACKAGES kmod-shortcut-fe"
+# PACKAGES="$PACKAGES kmod-shortcut-fe-cm"
+# PACKAGES="$PACKAGES kmod-fast-classifier"
 PACKAGES="$PACKAGES kmod-tcp-bbr"
+PACKAGES="$PACKAGES kmod-tcp-hybla"
 
 # 界面翻译补全
-PACKAGES="$PACKAGES luci-i18n-opkg-zh-cn luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn luci-i18n-turboacc-zh-cn"
-
+# PACKAGES="$PACKAGES luci-i18n-opkg-zh-cn luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn luci-i18n-turboacc-zh-cn"
+PACKAGES="$PACKAGES luci-i18n-opkg-zh-cn luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn"
 # Packages 文件夹下的 ipk 包
 # PACKAGES="$PACKAGES luci-i18n-wrtbwmon-zh-cn"
 
