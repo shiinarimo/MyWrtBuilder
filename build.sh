@@ -32,10 +32,10 @@ PACKAGES="$PACKAGES luci-app-passwall luci-i18n-passwall-zh-cn"
 # Passwall功能补充
 PACKAGES="$PACKAGES hysteria"
 PACKAGES="$PACKAGES naiveproxy"
-PACKAGES="$PACKAGES chinadns-ng"
-PACKAGES="$PACKAGES brook"
-PACKAGES="$PACKAGES v2ray-geosite"
-PACKAGES="$PACKAGES v2ray-geoip"
+# PACKAGES="$PACKAGES chinadns-ng"
+# PACKAGES="$PACKAGES brook"
+# PACKAGES="$PACKAGES v2ray-geosite"
+# PACKAGES="$PACKAGES v2ray-geoip"
 
 
 # frp 和 nps 内网穿透
@@ -74,7 +74,7 @@ PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn"
 # Zerotier
 PACKAGES="$PACKAGES luci-i18n-zerotier-zh-cn"
 # OpenVPN
-PACKAGES="$PACKAGES luci-i18n-openvpn-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-openvpn-zh-cn"
 
 # 网络组件
 # UPNP
@@ -82,13 +82,12 @@ PACKAGES="$PACKAGES luci-i18n-upnp-zh-cn"
 # EQoS 网速控制
 PACKAGES="$PACKAGES luci-i18n-eqos-zh-cn"
 # 多线多拨与负载均衡
-PACKAGES="$PACKAGES luci-app-syncdial luci-i18n-mwan3-zh-cn"
+# PACKAGES="$PACKAGES luci-app-syncdial luci-i18n-mwan3-zh-cn"
 # 宽带监控 Nlbwmon
 PACKAGES="$PACKAGES luci-i18n-nlbwmon-zh-cn"
 # NFT QOS
 PACKAGES="$PACKAGES luci-i18n-nft-qos-zh-cn"
-#
-PACKAGES="$PACKAGES luci-i18n-netdata-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-netdata-zh-cn"
 # Speedrv2
 # PACKAGES="$PACKAGES luci-i18n-speederv2-zh-cn"
 
