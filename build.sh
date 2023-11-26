@@ -30,8 +30,8 @@ PACKAGES="$PACKAGES luci-app-openclash"
 # Passwall 代理
 PACKAGES="$PACKAGES luci-app-passwall luci-i18n-passwall-zh-cn"
 # Passwall功能补充
-PACKAGES="$PACKAGES hysteria"
-PACKAGES="$PACKAGES naiveproxy"
+# PACKAGES="$PACKAGES hysteria"
+# PACKAGES="$PACKAGES naiveproxy"
 # PACKAGES="$PACKAGES chinadns-ng"
 # PACKAGES="$PACKAGES brook"
 # PACKAGES="$PACKAGES v2ray-geosite"
@@ -97,6 +97,7 @@ PACKAGES="$PACKAGES luci-i18n-nft-qos-zh-cn"
 # PACKAGES="$PACKAGES kmod-fast-classifier"
 PACKAGES="$PACKAGES kmod-tcp-bbr"
 PACKAGES="$PACKAGES kmod-tcp-hybla"
+PACKAGES="$PACKAGES kmod-tcp-scalable"
 
 # 界面翻译补全
 # PACKAGES="$PACKAGES luci-i18n-opkg-zh-cn luci-i18n-base-zh-cn luci-i18n-firewall-zh-cn luci-i18n-turboacc-zh-cn"
