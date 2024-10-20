@@ -1,0 +1,28 @@
+config interface 'loopback'
+        option proto 'static'
+        option ipaddr '127.0.0.1'
+        option netmask '255.0.0.0'
+        option device 'lo'
+
+config globals 'globals'
+        option packet_steering '1'
+
+config interface 'lan'
+        option proto 'static'
+        option device 'eth0'
+        option ipaddr '10.10.10.200'
+        option netmask '255.255.255.0'
+        option ip6assign '64'
+        list ip6class 'local'
+        option gateway '10.10.10.253'
+        list dns '10.10.10.249'
+
+config device
+        option name 'br-lan'
+        option type 'bridge'
+        list ports 'eth0'
+
+config interface 'utun'
+        option proto 'none'
+        option ifname 'utun'
+        option device 'utun'

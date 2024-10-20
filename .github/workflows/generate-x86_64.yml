@@ -4,6 +4,8 @@ name: Generate x86_64 OpenWrt Firmware
 
 # Controls when the workflow will run
 on:
+  watch:
+    types: [started]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
@@ -19,7 +21,7 @@ on:
 env:
   DOWNLOAD_BASE: https://downloads.immortalwrt.org
   VENDOR: immortalwrt
-  VERSION: 23.05.1
+  VERSION: 23.05.4
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -32,9 +34,9 @@ jobs:
     steps:
       - name: Initialization Environment
         run: |
-          sudo apt-get -qq update
-          sudo apt-get -qq install build-essential libncurses5-dev libncursesw5-dev zlib1g-dev gawk git gettext libssl-dev xsltproc rsync wget unzip qemu-utils mkisofs
-
+          # sudo apt-get -qq update
+          # sudo apt-get -qq install build-essential libncurses5-dev libncursesw5-dev zlib1g-dev gawk git gettext libssl-dev xsltproc rsync wget unzip qemu-utils mkisofs
+          sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
       - name: Setup Environment Variables
         run: |
           echo "DATE=$(date +%Y%m%d)" >> $GITHUB_ENV

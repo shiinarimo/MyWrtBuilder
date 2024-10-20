@@ -36,20 +36,20 @@ PACKAGES="$PACKAGES luci-app-fileassistant"
 # 硬盘休眠
 PACKAGES="$PACKAGES luci-i18n-hd-idle-zh-cn"
 # p910nd 打印服务器
-PACKAGES="$PACKAGES luci-i18n-p910nd-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-p910nd-zh-cn"
 # GoWebDav
-PACKAGES="$PACKAGES luci-i18n-gowebdav-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-gowebdav-zh-cn"
 # Samba 网络共享
-PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn"
 # qBittorrent 下载器
-PACKAGES="$PACKAGES luci-i18n-qbittorrent-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-qbittorrent-zh-cn"
 # Aria2 下载器
-PACKAGES="$PACKAGES luci-i18n-aria2-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-aria2-zh-cn"
 # FTP 服务器
-PACKAGES="$PACKAGES luci-i18n-vsftpd-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-vsftpd-zh-cn"
 
 # Docker 组件
-PACKAGES="$PACKAGES luci-i18n-dockerman-zh-cn luci-i18n-docker-zh-cn"
+# PACKAGES="$PACKAGES luci-i18n-dockerman-zh-cn luci-i18n-docker-zh-cn"
 
 # VPN 类
 
@@ -72,9 +72,11 @@ PACKAGES="$PACKAGES luci-i18n-opkg-zh-cn luci-i18n-base-zh-cn luci-i18n-firewall
 
 # Packages 文件夹下的 ipk 包
 PACKAGES="$PACKAGES luci-i18n-wrtbwmon-zh-cn"
+PACKAGES="$PACKAGES luci-app-adguardhome"
 
 # 一些自己需要的内核组件
-PACKAGES="$PACKAGES kmod-usb-printer kmod-lp"
+# PACKAGES="$PACKAGES kmod-usb-printer kmod-lp"
+PACKAGES="$PACKAGES kmod-nft-tproxy kmod-inet-diag kmod-tun"
 
 # 一些其他可能有用的包
 
